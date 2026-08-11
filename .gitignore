@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Local database / backups
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+database.db.backup.*
+backups/
+
+# Local secrets/config
+config.json
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.swp
