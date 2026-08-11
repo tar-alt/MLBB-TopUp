@@ -1,19 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-950 text-white min-h-screen p-6">
-  <div class="max-w-4xl mx-auto">
-    <h1 class="text-3xl font-bold text-emerald-400 mb-6">Admin Management Panel</h1>
-    <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
-      <p class="text-slate-400">Manage packages, view orders, and update Telegram Bot settings here.</p>
-    </div>
-  </div>
-</body>
-</html>
+<!doctype html><html lang="my"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MLBB Top-Up</title><script src="https://cdn.tailwindcss.com"></script>
+<style>
+body{background:#16001d;color:#fff;font-family:system-ui,-apple-system,sans-serif}.card{background:#211026;border:1px solid #4a3150}.purple{background:#6840ff}.sel{border-color:#8b5cf6!important;background:#3a1e4d!important}.hide{display:none!important}
+input{outline:0}.step{background:#2d1734}.ok{color:#5ee59a}.warn{color:#ffd166}.danger{color:#ff7b8a}
+</style></head><body>
+<header class="sticky top-0 z-20 bg-[#16001d]/95 border-b border-purple-900 px-4 py-3 flex justify-between">
+<div><b id="storeName">MLBB TOP-UP</b><div class="text-[10px] text-purple-300">Mobile Legends Diamond Store</div></div>
+<a href="/history.html" class="text-xs border border-purple-700 rounded-lg px-3 py-2">မှတ်တမ်း</a></header>
+<main class="max-w-md mx-auto p-4">
+<section class="rounded-3xl p-5 mb-4 bg-gradient-to-br from-[#743cff] to-[#2b1036]"><div class="text-3xl">💎</div><h1 class="text-xl font-black mt-2">Mobile Legends: Bang Bang</h1><p id="notice" class="text-xs text-purple-100 mt-1"></p></section>
 
+<div class="card rounded-2xl p-4 mb-4"><div class="flex gap-2 items-center mb-3"><span class="step rounded-full w-7 h-7 grid place-items-center">1</span><b>Player ID စစ်ပါ</b></div>
+<div class="grid grid-cols-3 gap-2"><input id="uid" inputmode="numeric" placeholder="User ID" class="col-span-2 bg-[#120b16] border border-purple-900 rounded-xl p-3 text-sm"><input id="zone" inputmode="numeric" placeholder="Zone ID" class="bg-[#120b16] border border-purple-900 rounded-xl p-3 text-sm"></div>
+<button id="checkBtn" onclick="checkID()" class="w-full mt-2 purple rounded-xl py-3 font-bold">ID စစ်ဆေးမည်</button>
+<div id="player" class="hide mt-3 rounded-xl bg-emerald-950/50 border border-emerald-700 p-3 text-sm"><span>✓</span> <b id="ign"></b><div class="text-[11px] text-gray-400" id="ids"></div></div></div>
 
+<div class="card rounded-2xl p-4 mb-4"><div class="flex gap-2 items-center mb-3"><span class="step rounded-full w-7 h-7 grid place-items-center">2</span><b>Diamond Package ရွေးပါ</b></div><div id="pkgs" class="grid grid-cols-2 gap-2"></div></div>
+
+<div class="card rounded-2xl p-4 mb-4"><div class="flex gap-2 items-center mb-3"><span class="step rounded-full w-7 h-7 grid place-items-center">3</span><b>Payment Method</b></div>
+<div class="grid grid-cols-2 gap-2"><button id="kbtn" onclick="pay='KPay';payUI()" class="border border-purple-800 rounded-xl p-3 text-left"><b class="text-blue-300">KBZPay</b><div class="text-[10px] text-gray-400">ငွေလွှဲရန်</div></button><button id="wbtn" onclick="pay='WavePay';payUI()" class="border border-purple-800 rounded-xl p-3 text-left"><b class="text-yellow-300">WavePay</b><div class="text-[10px] text-gray-400">ငွေလွှဲရန်</div></button></div>
+<div class="mt-3 bg-[#120b16] rounded-xl p-3 text-sm">ငွေလွှဲရမည့်နံပါတ် <b id="payNum" class="text-purple-300"></b></div></div>
+<button onclick="createOrder()" class="w-full purple rounded-2xl py-4 font-black">ဝယ်ယူပြီး Payment ဆက်လုပ်မည်</button>
+</main>
+
+<div id="modal" class="hide fixed inset-0 z-50 bg-black/70 p-4 grid place-items-center"><div class="bg-white text-[#23152a] rounded-3xl w-full max-w-md p-5">
+<div class="flex justify-between"><b class="text-lg">Payment အတည်ပြုရန်</b><button onclick="closeM()">✕</button></div>
+<div class="mt-4 bg-[#f6f2ff] rounded-2xl p-4"><div class="text-sm">Order <b id="mOrder"></b></div><div class="text-sm mt-2">Package <b id="mPkg"></b></div><div class="text-2xl font-black mt-2" id="mPrice"></div><div class="mt-3">Payment <b id="mMethod"></b></div><div class="text-sm mt-1">ငွေလွှဲရမည့်နံပါတ်</div><div class="font-mono text-lg font-bold" id="mNum"></div></div>
+<p class="text-xs text-gray-600 mt-3">ငွေလွှဲပြီးပါက ပြေစာ/Transaction Reference နံပါတ်ကို ထည့်ပါ။</p>
+<input id="ref" placeholder="Transaction Reference / ပြေစာနံပါတ်" class="w-full border rounded-xl p-3 mt-2">
+<button onclick="submitPayment()" class="w-full bg-emerald-600 text-white rounded-xl py-3 mt-3 font-bold">ငွေလွှဲပြီးကြောင်း အတည်ပြုမည်</button>
+</div></div>
+<script>
+let data={},pkgs=[],selected=null,verified=false,pay='KPay',orderNo='';
+const $=id=>document.getElementById(id);
+async function load(){let r=await fetch('/api/initial-data'),d=await r.json();data=d;pkgs=d.packages||[];$('storeName').textContent=d.settings.storeName||'MLBB TOP-UP';$('notice').textContent=d.settings.notice||'';render();payUI()}
+function render(){$('pkgs').innerHTML=pkgs.map(p=>`<button class="pkg border border-purple-900 rounded-xl p-3 text-left" onclick="pick(this,${p.id})"><div class="text-xl">💎</div><b class="text-xs">${esc(p.name)}</b><div class="text-purple-300 font-bold mt-1">${Number(p.price).toLocaleString()} Ks</div></button>`).join('')}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function pick(el,id){document.querySelectorAll('.pkg').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');selected=pkgs.find(x=>x.id==id)}
+function payUI(){$('payNum').textContent=pay==='KPay'?(data.settings?.kpay||''):(data.settings?.wave||'');$('kbtn').classList.toggle('sel',pay==='KPay');$('wbtn').classList.toggle('sel',pay==='WavePay')}
+async function checkID(){let userId=$('uid').value.trim(),zoneId=$('zone').value.trim();if(!userId||!zoneId)return alert('User ID နှင့် Zone ID ထည့်ပါ');$('checkBtn').disabled=true;$('checkBtn').textContent='စစ်ဆေးနေပါသည်...';try{let r=await fetch('/api/check-id',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId,zoneId})}),d=await r.json();if(!d.success)throw Error(d.error);verified={userId,zoneId,ign:d.ign};$('ign').textContent=d.ign;$('ids').textContent=`ID: ${userId} (${zoneId})`;$('player').classList.remove('hide')}catch(e){alert(e.message)}finally{$('checkBtn').disabled=false;$('checkBtn').textContent='ID စစ်ဆေးမည်'}}
+async function createOrder(){if(!verified)return alert('အရင် ID စစ်ပါ');if(!selected)return alert('Package ရွေးပါ');let r=await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:verified.userId,zoneId:verified.zoneId,ign:verified.ign,packageId:selected.id,paymentMethod:pay})}),d=await r.json();if(!d.success)return alert(d.error);orderNo=d.orderNo;$('mOrder').textContent=d.orderNo;$('mPkg').textContent=d.packageName;$('mPrice').textContent=Number(d.price).toLocaleString()+' Ks';$('mMethod').textContent=d.paymentMethod;$('mNum').textContent=d.paymentNumber;$('ref').value='';$('modal').classList.remove('hide')}
+function closeM(){$('modal').classList.add('hide')}
+async function submitPayment(){let ref=$('ref').value.trim();if(!ref)return alert('Transaction Reference ထည့်ပါ');let r=await fetch('/api/orders/'+orderNo+'/payment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({userId:verified.userId,paymentRef:ref})}),d=await r.json();if(!d.success)return alert(d.error);location.href='/history.html?order='+encodeURIComponent(orderNo)+'&user='+encodeURIComponent(verified.userId)}
+load();
+</script></body></html>
