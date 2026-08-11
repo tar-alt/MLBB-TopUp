@@ -1,0 +1,10 @@
+{
+  "adminPassword": "CHANGE_THIS_ADMIN_PASSWORD",
+  "jwtSecret": "CHANGE_THIS_TO_A_LONG_RANDOM_SECRET",
+  "mlbbIdApi": {
+    "url": "",
+    "apiKey": "",
+    "apiKeyHeader": "X-API-KEY",
+    "apiId": ""
+  }
+}
